@@ -1,0 +1,42 @@
+.seat-btn {
+  clip-path: polygon(
+    15% 50%,
+    0 50%,
+    0 100%,
+    30% 100%,
+    30% 75%,
+    70% 75%,
+    70% 100%,
+    100% 100%,
+    100% 50%,
+    85% 50%,
+    85% 0,
+    15% 0
+  );
+  border: none;
+}
+.seat-btn:checked {
+  clip-path: polygon(
+    15% 50%,
+    0 50%,
+    0 100%,
+    30% 100%,
+    30% 75%,
+    70% 75%,
+    70% 100%,
+    100% 100%,
+    100% 50%,
+    85% 50%,
+    85% 0,
+    15% 0
+  );
+  border: none;
+}
+
+.user-login {
+  background-color: "white";
+  margin: "10% auto";
+  box-shadow: "0px 0px 10px black";
+  width: "30vw";
+  padding: "35px";
+}

@@ -1,0 +1,36 @@
+.card {
+  align-items: center;
+  width: 300px;
+}
+.card-seat {
+  align-items: center;
+}
+.card-userDetails {
+  align-items: center;
+}
+
+.card_image {
+  height: 40vh;
+  width: 300px;
+}
+
+.card-primary {
+  background-color: wheat;
+}
+
+.movie_cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card-body {
+  width: 300px;
+  height: 300px;
+  padding: 15px;
+}
+.card-body-user-details {
+  width: 25vw;
+
+  padding: 15px;
+}

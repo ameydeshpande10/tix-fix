@@ -1,0 +1,41 @@
+.user-submenu {
+  width: 14rem;
+  list-style: none;
+  text-align: start;
+  position: absolute;
+  top: 80px;
+}
+
+.user-submenu li {
+  margin-right: 40px;
+  height: 50px;
+  background-color: skyblue;
+  cursor: pointer;
+}
+.user-submenu.clicked {
+  display: none;
+}
+
+.submenu-item {
+  display: block;
+  height: 10%;
+  color: black;
+  text-decoration: none;
+}
+
+.submenu-item:hover {
+  background: aqua;
+}
+
+.nav-items {
+  margin-top: 3%;
+  list-style: none;
+  height: 14vh;
+  display: flex;
+  z-index: 2;
+}
+
+.logo {
+  height: "8vh";
+  width: "180px";
+}
