@@ -4,23 +4,14 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const Show = require("../model/show");
 
-let express = require("express");
-let bodyParser = require("body-parser");
-var urlencodedParser = bodyParser.urlencoded({ extended: true });
-
-require("dotenv").config();
-
 // importing from files
 const User = require("../model/user");
 const movie = require("../model/movie");
-const authenticate = require("../middleware/authenticate");
-const cookieParser = require("cookie-parser");
 
-//setup express app
-let app = express();
+require("dotenv").config();
 
 // sign up user
-exports.SignUp = async (req, res) => {
+exports.PostSignUp = async (req, res) => {
   const {
     name,
     address,
@@ -69,7 +60,7 @@ exports.SignUp = async (req, res) => {
 };
 
 // login user
-exports.LogIn = async (req, res) => {
+exports.PostLogIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -116,49 +107,22 @@ exports.LogIn = async (req, res) => {
   }
 };
 
-// To get details
-exports.GetDetails = async (req, res) => {
+// logout (using middleware)
+exports.GetLogOut = async (req, res) => {
   try {
-    var email = req.cookies.email;
-
-    var user = await User.findOne({
-      email: email,
-    });
-    var userJson = JSON.stringify(user);
-    res.send(user);
+    if (req.rootUser) {
+      res.clearCookie("jwtoken", { path: "/" });
+      res.clearCookie("loggedIn");
+      res.clearCookie("email");
+      res.status(200).send("logged out");
+    }
   } catch (error) {
-    res.send({ message: "error in getting user details" });
-    //res.status(400).json({ error: "error in getting user details" });
-  }
-};
-
-// logout
-exports.LogOut = async (req, res) => {
-  res.clearCookie("jwtoken", { path: "/" });
-  res.clearCookie("loggedIn");
-  res.clearCookie("email");
-  res.status(200).send("logout");
-};
-
-// get user name
-exports.GetUserName = async (req, res) => {
-  try {
-    var email = req.cookies.email;
-    var myUser = await User.findOne({
-      email: email,
-    });
-
-    var jsonContent = JSON.stringify(myUser);
-    var jsonContentParsed = JSON.parse(jsonContent);
-    var name = jsonContentParsed["name"];
-    res.end(name);
-  } catch (error) {
-    res.send({ message: error });
+    res.status(200).send(error.message);
   }
 };
 
 // to delete user
-exports.delete_user = async (req, res) => {
+exports.GetDeleteUser = async (req, res) => {
   try {
     var email = req.body.email;
     var myUser = await User.findOne({
@@ -174,43 +138,22 @@ exports.delete_user = async (req, res) => {
   res.end();
 };
 
-// To get tickets
-exports.GetTickets = async (req, res) => {
+// To get details (using middleware)
+exports.GetDetails = async (req, res) => {
   try {
-    var email = req.cookies.email;
-    var myUser = await User.findOne({
-      email: email,
-    });
-    var userJson = JSON.stringify(myUser);
-
-    res.send(myUser.tickets);
-    //res.send(userJson.tickets);
+    res.send(req.rootUser);
   } catch (error) {
-    res.send({ message: error });
+    res.send({ message: "error in getting user details" });
   }
 };
 
-//reset password
-exports.reset_password = async (req, res) => {
+// To get tickets (using middleware)
+exports.GetTickets = async (req, res) => {
   try {
-    var email = req.body.email;
-    var myUser = await User.findOne({
-      email: email,
-    });
-    if (!myUser) {
-      res.status(200).send({
-        message: "Password incorrect!",
-      });
-    } else {
-      res.status(200).send({
-        message: "Email to reset password send.",
-      });
-    }
-    console.log(myUser);
+    res.send(req.rootUser.tickets);
   } catch (error) {
     res.send({ message: error });
   }
-  res.end();
 };
 
 // forgot password
@@ -225,7 +168,7 @@ exports.ForgotPassword = async (req, res) => {
     const token = jwt.sign({ email: user.email, id: user._id }, secret, {
       expiresIn: "5m",
     });
-    //const link = `http://localhost:5000/reset-password/${user._id}/${token}`;
+
     const link = `http://localhost:3000/reset_password/${user._id}/${token}`;
     //
     http: var transporter = nodemailer.createTransport({
@@ -258,8 +201,8 @@ exports.ForgotPassword = async (req, res) => {
   }
 };
 
-//router.get("/reset-password/:id/:token",
-exports.ResetPasswordGet = async (req, res) => {
+// Reset password verify "/reset-password/:id/:token",
+exports.GetResetPassword = async (req, res) => {
   const { id, token } = req.params;
 
   const user = await User.findOne({ _id: id });
@@ -276,8 +219,8 @@ exports.ResetPasswordGet = async (req, res) => {
   }
 };
 
-//router.post("/reset-password/:id/:token",urlencodedParser,
-exports.ResetPasswordPost = async (req, res) => {
+// Reset password
+exports.PostResetPassword = async (req, res) => {
   const id = req.body.id;
   const token = req.body.token;
 
@@ -313,14 +256,10 @@ exports.ResetPasswordPost = async (req, res) => {
 let ticket;
 let otp;
 var seatbooked = [];
-exports.UpdateTicket = async (req, res) => {
+exports.PostUpdateTicket = async (req, res) => {
   try {
-    console.log("in update ticket");
-    var email = req.cookies.email;
     var id = req.body.id;
-    var user = await User.findOne({
-      email: email,
-    });
+    var user = req.rootUser;
 
     var cmovie = await movie.findOne({
       _id: id,
@@ -375,25 +314,18 @@ exports.UpdateTicket = async (req, res) => {
   }
 };
 
-//confirm otp and update ticket
-exports.ConfirmOTP = async (req, res) => {
+//confirm otp and update ticket (using middleware)
+exports.PostConfirmOTP = async (req, res) => {
   try {
-    var email = req.cookies.email;
     var newOTP = req.body.otp;
-    var user = await User.findOne({
-      email: email,
-    });
+    var user = req.rootUser;
 
     if (newOTP == otp.toString()) {
-      console.log("OTP matched");
-
       //updating seats database
       let id = req.params.id;
-      //let bookedSeats = ticket.seats;
 
       try {
         for (var i = 0; i < seatbooked.length; i++) {
-          //console.log("adding");
           await Show.findOneAndUpdate(
             {
               _id: id,
@@ -409,15 +341,12 @@ exports.ConfirmOTP = async (req, res) => {
         console.log(error);
       }
       res.json({ status: "seat booked" });
-
-      console.log("Seat booked");
-      //adding ticket to user
       user.tickets.push(ticket);
       user.save();
-      console.log("before send email");
       sendTicketEmail(user);
-      console.log("After send email");
       res.send({ message: "ticket Added" });
+      ticket = null;
+      otp = null;
     } else {
       res.send({ message: "Payment Failed" });
       console.log("OTP does NOT matched");
@@ -429,10 +358,7 @@ exports.ConfirmOTP = async (req, res) => {
 };
 
 function sendTicketEmail(user) {
-  console.log("in send ticket email");
-  console.log(user);
   let movie = ticket.movie;
-  console.log(ticket.movie);
   let date = ticket.date;
   let time = ticket.time_slot;
   let seats = ticket.seats;

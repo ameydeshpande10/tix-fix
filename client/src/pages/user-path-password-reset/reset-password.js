@@ -72,22 +72,6 @@ export const ResetPassword = () => {
       <form onSubmit={ResetPassword}>
         <h5>Enter new Password </h5>
         <br></br>
-
-        {/* <div className="mb-3">
-          <label className="form-label">Email address</label>
-          <input
-            style={{
-              backgroundColor: "whitesmoke",
-              //width: "35vw",
-              //padding: "20px",
-              color: "grey",
-            }}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            className="form-control "
-          />
-        </div> */}
         <div className="mb-3">
           <label className="form-label">New Password</label>
           <input

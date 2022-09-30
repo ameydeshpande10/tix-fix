@@ -11,7 +11,8 @@ const authenticate = async (req, res, next) => {
     req.userId = rootUser._id;
     next();
   } catch (error) {
-    res.status(401).send(error);
+    console.log(error);
+    res.status(401).send("User not found");
   }
 };
 

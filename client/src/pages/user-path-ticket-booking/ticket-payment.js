@@ -13,7 +13,7 @@ export const TicketPayment = () => {
 
     try {
       await axios
-        .post(`http://localhost:3001/user/confirm-ticket/${id}`, {
+        .post(`http://localhost:3001/user/confirm-ticket`, {
           otp,
         })
         .then((Response) => {
