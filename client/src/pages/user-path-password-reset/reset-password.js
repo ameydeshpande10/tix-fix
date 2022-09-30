@@ -8,12 +8,13 @@ export const ResetPassword = () => {
   const { id } = useParams();
   const { token } = useParams();
 
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
   const [message, setMessage] = useState("");
   const [verifid, setVerifid] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
+
+  console.log(verifid + " " + hasLoaded);
 
   useEffect(() => {
     GetVerifid();
@@ -24,7 +25,7 @@ export const ResetPassword = () => {
       await axios
         .get(`http://localhost:3001/user/reset-password/${id}/${token}`)
         .then((res) => {
-          console.log(res.data.status);
+          //console.log(res.data.status);
           if (res.data.status === "verified") {
             setVerifid(true);
             setHasLoaded(true);
@@ -48,7 +49,7 @@ export const ResetPassword = () => {
           cpassword,
         })
         .then((Response) => {
-          setMessage(Response.data.message);
+          setMessage(Response.data.status);
           setTimeout(() => navigate("/signin"), 1000);
         });
     } catch (error) {

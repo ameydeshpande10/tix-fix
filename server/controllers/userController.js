@@ -223,18 +223,17 @@ exports.GetResetPassword = async (req, res) => {
 exports.PostResetPassword = async (req, res) => {
   const id = req.body.id;
   const token = req.body.token;
-
   const password = req.body.password;
   const cpassword = req.body.cpassword;
 
   if (password !== cpassword) {
     console.log("password not match");
-    return res.send({ status: "Password do not match! 2" });
+    return res.send({ status: "Password do not match!" });
   }
   const user = await User.findOne({ _id: id });
   if (!user) {
     console.log("user not found");
-    return res.send({ status: "User not found! 2" });
+    return res.send({ status: "User not found!" });
   }
   const secret = process.env.KEY + user.password;
   try {
@@ -245,10 +244,9 @@ exports.PostResetPassword = async (req, res) => {
       password: encPassword,
       cpassword: encCpassword,
     });
-    res.send({ email: verify.email, status: "verified 2" });
-    console.log("pass updated");
+    res.send({ email: verify.email, status: "Password changed!" });
   } catch (err) {
-    res.send("Not verified 2");
+    res.send(err);
   }
 };
 
@@ -322,7 +320,7 @@ exports.PostConfirmOTP = async (req, res) => {
 
     if (newOTP == otp.toString()) {
       //updating seats database
-      let id = req.params.id;
+      let id = req.body.id;
 
       try {
         for (var i = 0; i < seatbooked.length; i++) {
@@ -340,11 +338,12 @@ exports.PostConfirmOTP = async (req, res) => {
       } catch (error) {
         console.log(error);
       }
-      res.json({ status: "seat booked" });
+
       user.tickets.push(ticket);
       user.save();
       sendTicketEmail(user);
-      res.send({ message: "ticket Added" });
+      //res.send({ message: "ticket Added" });
+      res.json({ status: "seat booked Ticket send on Email" });
       ticket = null;
       otp = null;
     } else {

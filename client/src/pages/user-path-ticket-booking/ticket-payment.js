@@ -14,12 +14,12 @@ export const TicketPayment = () => {
     try {
       await axios
         .post(`http://localhost:3001/user/confirm-ticket`, {
+          id,
           otp,
         })
         .then((Response) => {
-          console.log("res data from ticket payment component" + Response.data);
-          setMessage(Response.data.message);
-          setTimeout(() => navigate("/Movies"), 1000);
+          setMessage(Response.data.status);
+          setTimeout(() => navigate("/Movies"), 2000);
         });
     } catch (error) {
       console.log(error);
