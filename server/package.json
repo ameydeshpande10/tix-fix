@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js",
-    "client": "cd  .. && cd client && npm start",
-    "start": "concurrently \"npm run dev\" \"npm run client\""
+    "start": "node app.js || nodemon app.js"
   },
   "author": "Amey Deshpande, Akanksha Verma, Nishchay Choudhary, Kiran Kondawar, Shubham Kawthekar",
   "license": "ISC",
