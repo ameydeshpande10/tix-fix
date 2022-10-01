@@ -3,10 +3,10 @@ require("dotenv").config();
 
 // MongoDB connection
 // URI = atlas
-// URI-LOCAL = local mongodb
+// LOCAL = local mongodb
 
 module.exports.connect = function () {
-  const URI = process.env.URI;
+  const URI = process.env.LOCAL;
   mongoose
     .connect(URI, {
       useNewUrlParser: true,

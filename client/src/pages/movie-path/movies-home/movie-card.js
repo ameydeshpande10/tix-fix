@@ -27,56 +27,109 @@ export function MovieCard() {
           }
         }
       };
+      var now = new Date();
+      var release_date = new Date(data.release_date);
+      if (adminCheck) {
+        return (
+          <>
+            <div key={name} className="">
+              <div
+                className="card mt-5 rounded "
+                style={{
+                  borderTopLeftRadius: "5rem",
+                  borderBottomLeftRadius: "5rem",
+                }}
+              >
+                <img
+                  src={image}
+                  className="card-img-top card_image p-2"
+                  alt="Not found"
+                />
+                <div className="card-body shadow pl-4">
+                  <div className="align-items-center justify-content-center p-2">
+                    <p className="text-capitalize ">
+                      <label className="me-2 fw-bold">
+                        <h4>
+                          <b>{name}</b>
+                        </h4>
+                      </label>
+                    </p>
+                    <p>
+                      <label className="me-2 fw-bold">Actors:&nbsp;</label>
+                      {actors_name}
+                    </p>
+                    <p>
+                      <label className="me-2 fw-bold">Director:&nbsp;</label>
+                      {director}
+                    </p>
+                  </div>
+                  <br></br>
 
-      return (
-        <>
-          <div key={name} className="">
-            <div
-              className="card mt-5 rounded "
-              style={{
-                borderTopLeftRadius: "5rem",
-                borderBottomLeftRadius: "5rem",
-              }}
-            >
-              <img
-                src={image}
-                className="card-img-top card_image p-2"
-                alt="Not found"
-              />
-              <div className="card-body shadow pl-4">
-                <div className="align-items-center justify-content-center p-2">
-                  <p className="text-capitalize ">
-                    <label className="me-2 fw-bold">
-                      <h4>
-                        <b>{name}</b>
-                      </h4>
-                    </label>
-                  </p>
-                  <p>
-                    <label className="me-2 fw-bold">Actors:&nbsp;</label>
-                    {actors_name}
-                  </p>
-                  <p>
-                    <label className="me-2 fw-bold">Director:&nbsp;</label>
-                    {director}
-                  </p>
-                </div>
-                <br></br>
-
-                <div className="align-items-center justify-content-between">
-                  <NavLink
-                    to={`/moviedetails/${id}`}
-                    className="btn btn-primary"
-                  >
-                    Movie Details
-                  </NavLink>
-                  <RenderBookTicketButton></RenderBookTicketButton>
+                  <div className="align-items-center justify-content-between">
+                    <NavLink
+                      to={`/moviedetails/${id}`}
+                      className="btn btn-primary"
+                    >
+                      Movie Details
+                    </NavLink>
+                    <RenderBookTicketButton></RenderBookTicketButton>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </>
-      );
+          </>
+        );
+      } else if (release_date <= now) {
+        return (
+          <>
+            <div key={name} className="">
+              <div
+                className="card mt-5 rounded "
+                style={{
+                  borderTopLeftRadius: "5rem",
+                  borderBottomLeftRadius: "5rem",
+                }}
+              >
+                <img
+                  src={image}
+                  className="card-img-top card_image p-2"
+                  alt="Not found"
+                />
+                <div className="card-body shadow pl-4">
+                  <div className="align-items-center justify-content-center p-2">
+                    <p className="text-capitalize ">
+                      <label className="me-2 fw-bold">
+                        <h4>
+                          <b>{name}</b>
+                        </h4>
+                      </label>
+                    </p>
+                    <p>
+                      <label className="me-2 fw-bold">Actors:&nbsp;</label>
+                      {actors_name}
+                    </p>
+                    <p>
+                      <label className="me-2 fw-bold">Director:&nbsp;</label>
+                      {director}
+                    </p>
+                  </div>
+                  <br></br>
+
+                  <div className="align-items-center justify-content-between">
+                    <NavLink
+                      to={`/moviedetails/${id}`}
+                      className="btn btn-primary"
+                    >
+                      Movie Details
+                    </NavLink>
+                    <RenderBookTicketButton></RenderBookTicketButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      }
     });
     return [allMovies];
   } catch (e) {

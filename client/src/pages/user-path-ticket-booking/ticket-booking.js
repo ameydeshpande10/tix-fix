@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Seats } from "./seats";
 import { useNavigate, useParams } from "react-router-dom";
+import DatePicker from "react-date-picker";
 import MovieDetailsIndividual from "../movie-path/movie-details/movie-details-individual";
 
 export const TicketBooking = () => {
@@ -59,7 +60,12 @@ export const TicketBooking = () => {
       ShowTimings = [];
       ShowArray.map((show) => {
         if (show.show.split("T")[0] === ticketDate) {
-          ShowTimings.push(show.time);
+          // console.log(show.time);
+          // console.log(Date().toLocaleString().split(" ")[4]);
+          // console.log(Date().toLocaleString().split(" ")[4] < show.time);
+          if (Date().toLocaleString().split(" ")[4] < show.time) {
+            ShowTimings.push(show.time);
+          }
         }
         return null;
       });
@@ -73,7 +79,7 @@ export const TicketBooking = () => {
       //console.log(ShowArray);
       if (ShowArray !== null) {
         ShowArray.some((show) => {
-          if (show.show.split("T")[0] === ticketDate)
+          if (show.show.split("T")[0] === ticketDate) {
             if (show.time === ticketTime) {
               setShowData(show);
               setPlatinumSeats(show.platinumRows);
@@ -95,6 +101,8 @@ export const TicketBooking = () => {
               setSilverRate([]);
               return false;
             }
+          }
+
           return false;
         });
       } else {
@@ -108,6 +116,7 @@ export const TicketBooking = () => {
         setSilverRate([]);
       }
     };
+
     getShowDetails();
   }, [ShowArray, ticketDate, ticketTime]);
 
@@ -192,6 +201,11 @@ export const TicketBooking = () => {
     }
   };
 
+  useEffect(() => {
+    var today = new Date().toISOString().split("T")[0];
+    document.getElementsByName("setTodaysDate")[0].setAttribute("min", today);
+  });
+
   const movieDetails = MovieDetailsIndividual(params);
   try {
     //Movie data
@@ -212,7 +226,7 @@ export const TicketBooking = () => {
                     <img
                       src={image}
                       className="card-img "
-                      style={{ height: "450px", width: "400px" }}
+                      style={{ height: "600px", width: "500px" }}
                       alt="..."
                     />
                   </div>
@@ -248,11 +262,18 @@ export const TicketBooking = () => {
                       <input
                         type="date"
                         id="birthday"
-                        name="birthday"
+                        name="setTodaysDate"
+                        min={new Date()}
                         onChange={(e) => {
                           setTicketDate(e.target.value);
                         }}
                       />
+                      {/* <DatePicker
+                        onChange={(e) => {
+                          setTicketDate(e.target.value);
+                        }}
+                        minDate={new Date()}
+                      /> */}
 
                       <hr className="border border-primary border-3 opacity-75"></hr>
                       <p className="card-text">Select Time</p>

@@ -3,7 +3,7 @@ import FileBase64 from "react-file-base64";
 
 export const AddMovie = () => {
   const [message, setMessage] = useState("");
-  //
+
   const [item, setItem] = useState({
     name: "",
     actors: "",
@@ -12,13 +12,9 @@ export const AddMovie = () => {
     genre: "",
     length: "",
     release_date: "",
-    start_date: "",
-    end_date: "",
-    first_show: "",
-    second_show: "",
     image: "",
   });
-  // const [items, setItems] = useState([])
+
   let name, value;
   const handleInputs = (e) => {
     name = e.target.name;
@@ -55,7 +51,7 @@ export const AddMovie = () => {
       }),
     });
     const result = await res.json();
-    console.log(result);
+    //console.log(result);
     setMessage(result.message);
   };
   return (
@@ -147,57 +143,8 @@ export const AddMovie = () => {
                     onChange={handleInputs}
                   />
                 </div>
-                {/* <div className="col">
-                  <label className="form-label">Availabe from</label>
-                  <input
-                    type="date"
-                    name="start_date"
-                    className="form-control"
-                    id="exampleFormControlInput1"
-                    required
-                    onChange={handleInputs}
-                  />
-                </div>
-                <div className="col">
-                  <label className="form-label">Available to</label>
-                  <input
-                    type="date"
-                    name="end_date"
-                    className="form-control"
-                    id="exampleFormControlInput1"
-                    required
-                    onChange={handleInputs}
-                  />
-                </div> */}
               </div>
-              {/* <div className="row">
-                <div className="col">
-                  <label className="form-label">First Show</label>
-                  <input
-                    type="time"
-                    name="first_show"
-                    className="form-control"
-                    id="exampleFormControlInput1"
-                    required
-                    onChange={handleInputs}
-                  />
-                </div>
-                <div className="col">
-                  <label className="form-label">Second Show</label>
-                  <input
-                    type="time"
-                    name="second_show"
-                    className="form-control"
-                    id="exampleFormControlInput1"
-                    required
-                    onChange={handleInputs}
-                  />
-                </div>
-              </div> */}
-              {/* <div className="row">
-                                <input type="file" className="form-control" name="image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onChange={handleInputs} />
-                                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
-                            </div> */}
+
               <br></br>
               <div className="row">
                 <div className="col">

@@ -39,6 +39,8 @@ import { MovieDetails } from "./pages/movie-path/movie-details/movie-details";
 import { UpcomingMovies } from "./pages/movie-path/movies-upcoming/upcoming-movies";
 import { UpcomingMoviesDisplay } from "./pages/movie-path/movies-upcoming/upcoming-movies-display";
 
+import Errorpage from "./pages/error-page";
+
 // Axios setup
 axios.defaults.withCredentials = true;
 
@@ -79,6 +81,7 @@ const App = () => {
             <Route path="/book-ticket/:id" element={<TicketBooking />} />
             <Route path="/ticket-payment/:id" element={<TicketPayment />} />
             <Route path="/addshows/:id" element={<AddShows />} />
+            <Route path="*" element={<Errorpage />} />
           </Routes>
         </Router>
       </UserContext.Provider>

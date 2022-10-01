@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export const AddShows = () => {
@@ -108,10 +108,15 @@ export const AddShows = () => {
   const goldSeats = createMovieSeats(data.goldRows, 10, "Gold");
   const silverSeats = createMovieSeats(data.silverRows, 10, "Silver");
 
+  // useEffect(() => {
+  //   var today = new Date().toISOString().split("T")[0];
+  //   document.getElementsByName("setTodaysDate")[0].setAttribute("min", today);
+  // });
+
   return (
     <div className="container justify-content-center">
       <div className="mt-2">
-        <div className="card p-5">
+        <div className="p-5">
           <table className="table" method="post">
             <h1>Add Shows</h1>
             <tr>
@@ -122,7 +127,7 @@ export const AddShows = () => {
                   </span>
                   <input
                     type="date"
-                    name="show"
+                    name="setTodaysDate"
                     className="form-control"
                     onChange={handleInputs}
                     required
