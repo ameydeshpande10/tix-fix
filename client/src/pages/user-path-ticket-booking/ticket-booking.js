@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Seats } from "./seats";
 import { useNavigate, useParams } from "react-router-dom";
-import DatePicker from "react-date-picker";
+
 import MovieDetailsIndividual from "../movie-path/movie-details/movie-details-individual";
 
 export const TicketBooking = () => {
