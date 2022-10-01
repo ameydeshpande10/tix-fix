@@ -49,7 +49,7 @@ export const DeleteMovie = () => {
 
     try {
       await axios
-        .post("http://localhost:3001/movie/delete-movie", {
+        .post("/movie/delete-movie", {
           movie_name,
         })
         .then((res) => {

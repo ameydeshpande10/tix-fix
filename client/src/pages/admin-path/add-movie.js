@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FileBase64 from "react-file-base64";
 
 export const AddMovie = () => {
+  const [message, setMessage] = useState("");
   //
   const [item, setItem] = useState({
     name: "",
@@ -33,15 +34,11 @@ export const AddMovie = () => {
       director,
       certification,
       genre,
-      length,
+      movie_length,
       release_date,
-      start_date,
-      end_date,
-      first_show,
-      second_show,
       image,
     } = item;
-    const res = await fetch("/movieregister", {
+    const res = await fetch("/movie/add-movie", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,17 +49,14 @@ export const AddMovie = () => {
         director,
         certification,
         genre,
-        length,
+        movie_length,
         release_date,
-        start_date,
-        end_date,
-        first_show,
-        second_show,
         image,
       }),
     });
     const result = await res.json();
     console.log(result);
+    setMessage(result.message);
   };
   return (
     <div>
@@ -224,6 +218,7 @@ export const AddMovie = () => {
                   >
                     Add Movie
                   </button>
+                  {message && <div>{message}</div>}
                 </div>
               </div>
             </div>

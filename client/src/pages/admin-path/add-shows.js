@@ -40,7 +40,7 @@ export const AddShows = () => {
     const platinumRows = platinumSeats;
     const goldRows = goldSeats;
     const silverRows = silverSeats;
-    const res = await fetch("/addshows", {
+    const res = await fetch("/shows/add-shows", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -4,8 +4,7 @@ import Axios from "axios";
 export default function MovieDetailsIndividual(movieId) {
   const [data, setData] = useState([]);
   useEffect(() => {
-    const url = `/moviedetails/${movieId.id}`;
-    Axios.get(url)
+    Axios.get(`/movie/details/${movieId.id}`)
       .then((res) => {
         setData(res.data.data);
       })

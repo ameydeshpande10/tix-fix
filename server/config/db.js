@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-const { db } = require("../model/user");
 require("dotenv").config();
 
-// MongoDB atlas connection
+// MongoDB connection
+// URI = atlas
+// URI-LOCAL = local mongodb
 
 module.exports.connect = function () {
   const URI = process.env.URI;
@@ -12,7 +13,7 @@ module.exports.connect = function () {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log("Connected to MongoDB Atlas");
+      console.log("Connected to MongoDB");
     })
     .catch((error) => console.log(error));
 };

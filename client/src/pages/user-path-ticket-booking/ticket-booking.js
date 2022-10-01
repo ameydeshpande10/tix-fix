@@ -41,7 +41,7 @@ export const TicketBooking = () => {
     const GetShows = async () => {
       try {
         await axios
-          .get(`http://localhost:3001/showdetails/${id}`, {
+          .get(`/shows/show-details/${id}`, {
             date: ticketDate,
           })
           .then((res) => {
