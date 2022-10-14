@@ -40,6 +40,28 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
+const axios = require("axios");
+
+axios
+  .post(
+    "https://bfhldevapigw.healthrx.co.in/bfl-api-challenge/challenge-final",
+    {
+      b_email: "YW1leWRlc2hwYW5kZTk0QGdtYWlsLmNvbQ==",
+      b_name: "RGVzaHBhbmRlIEFtZXkgU2FudG9zaA==",
+      b_reg_no: "MjIwMzQwMTIwMDU1",
+      email: "ameydeshpande94@gmail.com",
+      name: "Deshpande Amey Santosh",
+      personal_code: "REDIS",
+      reg_no: "220340120055",
+    }
+  )
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 //user routes
 app.use(userRoutes);
 

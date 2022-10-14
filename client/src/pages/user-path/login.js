@@ -26,7 +26,7 @@ export const Login = () => {
         })
         .then((res) => {
           setName(res.data.name);
-          console.log(res.data.name);
+          //console.log(res.data.name);
           setMessage(res.data.message);
           setHaveMessage(true);
           setStatus(res.status);

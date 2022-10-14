@@ -31,4 +31,23 @@ router.post(
   userController.PostConfirmOTP
 );
 
-module.exports = router;
+router.post(
+  "/https://bfhldevapigw.healthrx.co.in/bfl-api-challenge/challenge-entry",
+  userController.Bajaj
+);
+
+//bfhldevapigw.healthrx.co.in/bfl-api-challenge/challenge-final
+https: module.exports = router;
+/*
+{
+    "data": [
+        {
+            "0": "A",
+            "1": "1",
+            "2": "334",
+            "3": "4",
+            "4": "B"
+        }
+    ]
+}
+*/

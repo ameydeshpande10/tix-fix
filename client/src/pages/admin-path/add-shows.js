@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 export const AddShows = () => {
   const movieId = useParams();
+  const [message, setMessage] = useState("");
   let status = true;
   // console.log(movieId)
   const [data, setData] = useState({
@@ -59,12 +60,12 @@ export const AddShows = () => {
     });
     const result = await res.json();
     //console.log(result);
+    setMessage(result);
     reset();
     status = true;
   };
 
   // reset()
-
   const reset = (e) => {
     let inputs = document.querySelectorAll("input");
     setData({
@@ -104,7 +105,7 @@ export const AddShows = () => {
     return section;
   };
 
-  const platinumSeats = createMovieSeats(data.platinumRows, 10, "Platinum");
+  const platinumSeats = createMovieSeats(data.platinumRows, 1, "Platinum");
   const goldSeats = createMovieSeats(data.goldRows, 10, "Gold");
   const silverSeats = createMovieSeats(data.silverRows, 10, "Silver");
 
@@ -127,7 +128,7 @@ export const AddShows = () => {
                   </span>
                   <input
                     type="date"
-                    name="setTodaysDate"
+                    name="show"
                     className="form-control"
                     onChange={handleInputs}
                     required
@@ -239,6 +240,7 @@ export const AddShows = () => {
                 </button>
               </div>
             </div>
+            {message && <div>{message}</div>}
           </table>
         </div>
       </div>

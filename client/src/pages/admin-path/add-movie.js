@@ -10,7 +10,7 @@ export const AddMovie = () => {
     director: "",
     certification: "",
     genre: "",
-    length: "",
+    movie_length: "",
     release_date: "",
     image: "",
   });

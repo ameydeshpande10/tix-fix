@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import MovieData from "./movie-data";
 import Cookies from "js-cookie";

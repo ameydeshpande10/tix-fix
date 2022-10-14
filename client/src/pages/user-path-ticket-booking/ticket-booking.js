@@ -59,11 +59,11 @@ export const TicketBooking = () => {
     const PopulateShowTime = () => {
       ShowTimings = [];
       ShowArray.map((show) => {
-        if (show.show.split("T")[0] === ticketDate) {
+        if (show.show?.split("T")[0] === ticketDate) {
           // console.log(show.time);
           // console.log(Date().toLocaleString().split(" ")[4]);
           // console.log(Date().toLocaleString().split(" ")[4] < show.time);
-          if (Date().toLocaleString().split(" ")[4] < show.time) {
+          if (Date().toLocaleString()?.split(" ")[4] < show.time) {
             ShowTimings.push(show.time);
           }
         }
@@ -79,7 +79,7 @@ export const TicketBooking = () => {
       //console.log(ShowArray);
       if (ShowArray !== null) {
         ShowArray.some((show) => {
-          if (show.show.split("T")[0] === ticketDate) {
+          if (show.show?.split("T")[0] === ticketDate) {
             if (show.time === ticketTime) {
               setShowData(show);
               setPlatinumSeats(show.platinumRows);
