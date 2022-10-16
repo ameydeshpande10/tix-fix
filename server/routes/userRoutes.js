@@ -31,10 +31,10 @@ router.post(
   userController.PostConfirmOTP
 );
 
-router.post(
-  "/https://bfhldevapigw.healthrx.co.in/bfl-api-challenge/challenge-entry",
-  userController.Bajaj
-);
+// router.post(
+//   "/https://bfhldevapigw.healthrx.co.in/bfl-api-challenge/challenge-entry",
+//   userController.Bajaj
+// );
 
 //bfhldevapigw.healthrx.co.in/bfl-api-challenge/challenge-final
 https: module.exports = router;
